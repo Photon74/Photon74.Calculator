@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Photon74.Calculator", "Photon74.Calculator\Photon74.Calculator.csproj", "{BE4F6F9C-5C4A-4A44-85F1-BF460E7F281C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE4F6F9C-5C4A-4A44-85F1-BF460E7F281C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE4F6F9C-5C4A-4A44-85F1-BF460E7F281C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE4F6F9C-5C4A-4A44-85F1-BF460E7F281C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE4F6F9C-5C4A-4A44-85F1-BF460E7F281C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {63C3A62F-4BE5-4A12-9A3A-DC378CF10CBD}
+	EndGlobalSection
+EndGlobal
