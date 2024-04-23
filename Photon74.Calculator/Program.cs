@@ -15,7 +15,7 @@ internal class Program
         var calculateService = new CalculateService(outputService);
 
         //Welcome
-        outputService.ConsolePrint("Calculator v1.0.0 \n");
+        outputService.ConsolePrint("Calculator v2.0.0 \n");
 
         //Program
         outputService.ConsolePrint("Введите первое число (float): ");
