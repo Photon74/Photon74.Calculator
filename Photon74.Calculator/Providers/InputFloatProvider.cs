@@ -26,12 +26,15 @@ internal class InputFloatProvider
             if (!float.TryParse(_inputStringService.GetStringFromUser(), out number))
             {
                 _outputService.ConsolePrint("Неправильное число! Попробуйте ещё (float): ");
+                isNumberValide = true;
             }
-            isNumberValide = true;
+            else
+            {
+                isNumberValide = false;
+            }
 
         } while (isNumberValide);
 
         return number;
     }
-
 }

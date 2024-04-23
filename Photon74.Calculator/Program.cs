@@ -24,11 +24,6 @@ internal class Program
         var number2 = inputService.GetNumber();
 
         var operand = parseOperandService.GetOperandType();
-        if (operand == OperandType.None)
-        {
-            outputService.ConsolePrint("Неправильный операнд! Прощайте!");
-            return;
-        }
 
         var result = Calculate(number1, number2, operand);
         if (result is not null)

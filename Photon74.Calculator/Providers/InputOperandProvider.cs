@@ -19,17 +19,24 @@ internal class InputOperandProvider
     /// <returns>Операнд</returns>
     public OperandType GetOperandType()
     {
-        _outputService.ConsolePrint("Введите оператор + - * / :");
-        var operandString = _inputStringService.GetStringFromUser();
+        OperandType operand = OperandType.None;
 
-        return operandString switch
+
+        do
         {
-            "+" => OperandType.Addition,
-            "-" => OperandType.Subtraction,
-            "/" => OperandType.Division,
-            "*" => OperandType.Multiplication,
-            _ => OperandType.None
-        };
-    }
+            _outputService.ConsolePrint("Введите оператор + - * / :");
+            var operandString = _inputStringService.GetStringFromUser();
 
+            operand = operandString switch
+            {
+                "+" => OperandType.Addition,
+                "-" => OperandType.Subtraction,
+                "/" => OperandType.Division,
+                "*" => OperandType.Multiplication,
+                _ => OperandType.None
+            };
+        } while (operand == OperandType.None);
+
+        return operand;
+    }
 }
