@@ -6,21 +6,11 @@ internal class Program
     {
         Console.WriteLine("Calculator v1.0.0 \n");
 
-        Console.Write("Введите первое число: ");
+        Console.Write("Введите первое число (float): ");
         var number1 = GetNumber();
-        if (number1 is null)
-        {
-            Console.WriteLine("Неправильное число! Прощайте!");
-            return;
-        }
 
-        Console.Write("Введите второе число: ");
+        Console.Write("Введите второе число (float): ");
         var number2 = GetNumber();
-        if (number2 is null)
-        {
-            Console.WriteLine("Неправильное число! Прощайте!");
-            return;
-        }
 
         var operand = GetOperandType();
         if (operand == OperandType.None)
@@ -29,18 +19,39 @@ internal class Program
             return;
         }
 
-        var result = Calculate(number1.Value, number2.Value, operand);
+        var result = Calculate(number1, number2, operand);
 
         Console.WriteLine($"Результат: {result}");
     }
 
-    private static float? GetNumber()
+    /// <summary>
+    /// Возвращает число (float)
+    /// </summary>
+    /// <returns>float</returns>
+    private static float GetNumber()
     {
-        return !Single.TryParse(Console.ReadLine(), out float number) 
-            ? null 
-            : number;
+        float number;
+        bool isNumberValide;
+        do
+        {
+            if (!Single.TryParse(Console.ReadLine(), out number))
+            {
+                Console.Write("Неправильное число! Попробуйте ещё (float): ");
+            }
+            isNumberValide = true;
+
+        } while (isNumberValide);
+
+        return number;
     }
 
+    /// <summary>
+    /// Возвращает результат вычисления
+    /// </summary>
+    /// <param name="number1">Первое число</param>
+    /// <param name="number2">Второе число</param>
+    /// <param name="operand">Операнд (действие)</param>
+    /// <returns>float</returns>
     private static float? Calculate(float number1, float number2, OperandType operand)
     {
         switch (operand)
@@ -62,6 +73,10 @@ internal class Program
         return null;
     }
 
+    /// <summary>
+    /// Возвращает тип операнда
+    /// </summary>
+    /// <returns>Операнд</returns>
     private static OperandType GetOperandType()
     {
         Console.Write("Введите оператор + - * / :");
