@@ -12,6 +12,7 @@ internal class Program
         var inputStringService = new InputStringService();
         var inputService = new InputFloatProvider(outputService, inputStringService);
         var parseOperandService = new InputOperandProvider(outputService, inputStringService);
+        var calculateService = new CalculateService(outputService);
 
         //Welcome
         outputService.ConsolePrint("Calculator v1.0.0 \n");
@@ -25,7 +26,7 @@ internal class Program
 
         var operand = parseOperandService.GetOperandType();
 
-        var result = Calculate(number1, number2, operand);
+        var result = calculateService.Calculate(number1, number2, operand);
         if (result is not null)
         {
             outputService.ConsolePrint($"Результат: {result}");
@@ -34,33 +35,5 @@ internal class Program
         {
             outputService.ConsolePrint($"Результата нет!");
         }
-    }
-
-    /// <summary>
-    /// Возвращает результат вычисления
-    /// </summary>
-    /// <param name="number1">Первое число</param>
-    /// <param name="number2">Второе число</param>
-    /// <param name="operand">Операнд (действие)</param>
-    /// <returns>float</returns>
-    private static float? Calculate(float number1, float number2, OperandType operand)
-    {
-        switch (operand)
-        {
-            case OperandType.Addition:
-                return number1 + number2;
-            case OperandType.Subtraction:
-                return number1 - number2;
-            case OperandType.Multiplication:
-                return number1 * number2;
-            case OperandType.Division:
-                if (number2 == 0)
-                {
-                    Console.WriteLine("Делить на ноль нельзя! Прощайте!");
-                    return null;
-                }
-                return number1 / number2;
-        }
-        return null;
     }
 }
