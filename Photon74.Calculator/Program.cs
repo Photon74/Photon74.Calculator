@@ -12,7 +12,7 @@ internal class Program
         var inputStringService = new InputStringService();
         var inputService = new InputFloatProvider(outputService, inputStringService);
         var parseOperandService = new InputOperandProvider(outputService, inputStringService);
-        var calculateService = new CalculateService(outputService);
+        var calculateService = new CalculateProvider(outputService);
 
         //Welcome
         outputService.ConsolePrint("Calculator v2.0.0 \n");
