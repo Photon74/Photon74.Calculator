@@ -1,9 +1,11 @@
-﻿namespace Photon74.Calculator.Services;
-internal class CalculateService
+﻿using Photon74.Calculator.Services;
+
+namespace Photon74.Calculator.Providers;
+internal class CalculateProvider
 {
     private readonly OutputService _outputService;
 
-    public CalculateService(OutputService outputService)
+    public CalculateProvider(OutputService outputService)
     {
         _outputService = outputService;
     }
