@@ -1,48 +1,44 @@
-﻿namespace Photon74.Calculator;
+﻿using Photon74.Calculator.Providers;
+using Photon74.Calculator.Services;
+
+namespace Photon74.Calculator;
 
 internal class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Calculator v1.0.0 \n");
+        // Services
+        var outputService = new OutputService();
+        var inputStringService = new InputStringService();
+        var inputService = new InputFloatProvider(outputService, inputStringService);
+        var parseOperandService = new InputOperandProvider(outputService, inputStringService);
 
-        Console.Write("Введите первое число (float): ");
-        var number1 = GetNumber();
+        //Welcome
+        outputService.ConsolePrint("Calculator v1.0.0 \n");
 
-        Console.Write("Введите второе число (float): ");
-        var number2 = GetNumber();
+        //Program
+        outputService.ConsolePrint("Введите первое число (float): ");
+        var number1 = inputService.GetNumber();
 
-        var operand = GetOperandType();
+        outputService.ConsolePrint("Введите второе число (float): ");
+        var number2 = inputService.GetNumber();
+
+        var operand = parseOperandService.GetOperandType();
         if (operand == OperandType.None)
         {
-            Console.WriteLine("Неправильный операнд! Прощайте!");
+            outputService.ConsolePrint("Неправильный операнд! Прощайте!");
             return;
         }
 
         var result = Calculate(number1, number2, operand);
-
-        Console.WriteLine($"Результат: {result}");
-    }
-
-    /// <summary>
-    /// Возвращает число (float)
-    /// </summary>
-    /// <returns>float</returns>
-    private static float GetNumber()
-    {
-        float number;
-        bool isNumberValide;
-        do
+        if (result is not null)
         {
-            if (!Single.TryParse(Console.ReadLine(), out number))
-            {
-                Console.Write("Неправильное число! Попробуйте ещё (float): ");
-            }
-            isNumberValide = true;
-
-        } while (isNumberValide);
-
-        return number;
+            outputService.ConsolePrint($"Результат: {result}");
+        }
+        else
+        {
+            outputService.ConsolePrint($"Результата нет!");
+        }
     }
 
     /// <summary>
@@ -72,27 +68,4 @@ internal class Program
         }
         return null;
     }
-
-    /// <summary>
-    /// Возвращает тип операнда
-    /// </summary>
-    /// <returns>Операнд</returns>
-    private static OperandType GetOperandType()
-    {
-        Console.Write("Введите оператор + - * / :");
-        var operandString = Console.ReadLine();
-
-        return operandString switch
-        {
-            "+" => OperandType.Addition,
-            "-" => OperandType.Subtraction,
-            "/" => OperandType.Division,
-            "*" => OperandType.Multiplication,
-            _ => OperandType.None
-        };
-    }
 }
-
-
-
-
