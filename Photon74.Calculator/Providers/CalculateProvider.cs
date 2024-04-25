@@ -1,11 +1,11 @@
-﻿using Photon74.Calculator.Services;
+﻿using Photon74.Calculator.Services.Interfaces;
 
 namespace Photon74.Calculator.Providers;
 internal class CalculateProvider
 {
-    private readonly OutputService _outputService;
+    private readonly IOutputService _outputService;
 
-    public CalculateProvider(OutputService outputService)
+    public CalculateProvider(IOutputService outputService)
     {
         _outputService = outputService;
     }
@@ -30,7 +30,7 @@ internal class CalculateProvider
             case OperandType.Division:
                 if (number2 == 0)
                 {
-                    _outputService.ConsolePrint("Делить на ноль нельзя! Прощайте!");
+                    _outputService.Print("Делить на ноль нельзя! Прощайте!");
                     return null;
                 }
                 return number1 / number2;

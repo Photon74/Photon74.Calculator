@@ -1,13 +1,14 @@
 ﻿using Photon74.Calculator.Services;
+using Photon74.Calculator.Services.Interfaces;
 
 namespace Photon74.Calculator.Providers;
 
 internal class InputOperandProvider
 {
-    private readonly OutputService _outputService;
+    private readonly IOutputService _outputService;
     private readonly InputStringService _inputStringService;
 
-    public InputOperandProvider(OutputService outputService, InputStringService inputStringService)
+    public InputOperandProvider(IOutputService outputService, InputStringService inputStringService)
     {
         _outputService = outputService;
         _inputStringService = inputStringService;
@@ -24,7 +25,7 @@ internal class InputOperandProvider
 
         do
         {
-            _outputService.ConsolePrint("Введите оператор + - * / :");
+            _outputService.Print("Введите оператор + - * / :");
             var operandString = _inputStringService.GetStringFromUser();
 
             operand = operandString switch

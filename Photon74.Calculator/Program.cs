@@ -1,5 +1,6 @@
 ﻿using Photon74.Calculator.Providers;
 using Photon74.Calculator.Services;
+using Photon74.Calculator.Services.Interfaces;
 
 namespace Photon74.Calculator;
 
@@ -7,33 +8,45 @@ internal class Program
 {
     static void Main(string[] args)
     {
+
+        if(args.Length == 0)
+        {
+            throw new ArgumentNullException(nameof(args));
+        }
+
+        IOutputService outputService;
+
+        var values = args[0].Split('=');
+        outputService = values[1] == "console" 
+            ? new ConsoleOutputService() 
+            : new MessageBoxOutputService();
+
         // Services
-        var outputService = new OutputService();
         var inputStringService = new InputStringService();
-        var inputService = new InputFloatProvider(outputService, inputStringService);
-        var parseOperandService = new InputOperandProvider(outputService, inputStringService);
-        var calculateService = new CalculateProvider(outputService);
+        var inputProvider = new InputFloatProvider(outputService, inputStringService);
+        var parseOperandProvider = new InputOperandProvider(outputService, inputStringService);
+        var calculateProvider = new CalculateProvider(outputService);
 
         //Welcome
-        outputService.ConsolePrint("Calculator v2.0.0 \n");
+        outputService.Print("Calculator v3.0.0 \n");
 
         //Program
-        outputService.ConsolePrint("Введите первое число (float): ");
-        var number1 = inputService.GetNumber();
+        outputService.Print("Введите первое число (float): ");
+        var number1 = inputProvider.GetNumber();
 
-        outputService.ConsolePrint("Введите второе число (float): ");
-        var number2 = inputService.GetNumber();
+        outputService.Print("Введите второе число (float): ");
+        var number2 = inputProvider.GetNumber();
 
-        var operand = parseOperandService.GetOperandType();
+        var operand = parseOperandProvider.GetOperandType();
 
-        var result = calculateService.Calculate(number1, number2, operand);
+        var result = calculateProvider.Calculate(number1, number2, operand);
         if (result is not null)
         {
-            outputService.ConsolePrint($"Результат: {result}");
+            outputService.Print($"Результат: {result}");
         }
         else
         {
-            outputService.ConsolePrint($"Результата нет!");
+            outputService.Print($"Результата нет!");
         }
     }
 }
