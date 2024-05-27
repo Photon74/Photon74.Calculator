@@ -20,12 +20,11 @@ internal class InputOperandProvider
     /// <returns>Операнд</returns>
     public OperandType GetOperandType()
     {
-        OperandType operand = OperandType.None;
-
+        OperandType operand;
 
         do
         {
-            _outputService.Print("Введите оператор + - * / :");
+            _outputService.Print("Введите оператор [+] [-] [*] [/] :");
             var operandString = _inputStringService.GetStringFromUser();
 
             operand = operandString switch
