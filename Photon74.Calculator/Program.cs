@@ -1,4 +1,4 @@
-﻿using Calabonga.Utils;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Photon74.Calculator.Providers;
 using Photon74.Calculator.Services;
 using Photon74.Calculator.Services.Interfaces;
@@ -9,20 +9,21 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        //var outputService = ProcessArguments(args);
 
-        var container = new SimpleIoc();
-        container.Register<IOutputService, ConsoleOutputService>();
-        container.Register<InputStringService>();
-        container.Register<InputFloatProvider>();
-        container.Register<InputOperandProvider>();
-        container.Register<CalculateProvider>();
+        var services = new ServiceCollection();
+        services.AddTransient<IOutputService, ConsoleOutputService>();
+        services.AddTransient<InputStringService>();
+        services.AddTransient<InputFloatProvider>();
+        services.AddTransient<InputOperandProvider>();
+        services.AddTransient<CalculateProvider>();
+
+        var serviceProvider = services.BuildServiceProvider();
 
         // Services
-        var outputService = container.Resolve<IOutputService>();
-        var inputFloatProvider = container.Resolve<InputFloatProvider>();
-        var inputOperandProvider = container.Resolve<InputOperandProvider>();
-        var calculateProvider = container.Resolve<CalculateProvider>();
+        var outputService = serviceProvider.GetRequiredService<IOutputService>();
+        var inputFloatProvider = serviceProvider.GetRequiredService<InputFloatProvider>();
+        var inputOperandProvider = serviceProvider.GetRequiredService<InputOperandProvider>();
+        var calculateProvider = serviceProvider.GetRequiredService<CalculateProvider>();
 
         //Welcome
         outputService.Print("Calculator v4.0.0 \n");
@@ -50,7 +51,7 @@ internal class Program
         }
     }
 
-    private static IOutputService ProcessArguments(string[] args)
+    private static IOutputService ProcessArguments(string[] args, IEnumerable<IOutputService> outputServices)
     {
 
         if (args.Length == 0)
@@ -60,7 +61,7 @@ internal class Program
 
         var values = args[0].Split('=');
         return values[1] == "console"
-            ? new ConsoleOutputService()
-            : new MessageBoxOutputService();
+            ? outputServices.First(s => s.GetType() == typeof(ConsoleOutputService))
+            : outputServices.First(s => s.GetType() == typeof(MessageBoxOutputService));
     }
 }
