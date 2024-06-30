@@ -26,7 +26,7 @@ internal class Program
         var calculateProvider = serviceProvider.GetRequiredService<CalculateProvider>();
 
         //Welcome
-        outputService.Print("Calculator v4.0.0 \n");
+        outputService.Print("Calculator v5.0.0 \n");
 
         //Getting first number
         outputService.Print("Введите первое число (float): ");
